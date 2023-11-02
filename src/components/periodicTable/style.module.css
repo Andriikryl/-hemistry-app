@@ -8,6 +8,8 @@
     grid-gap: 4px;
   }
 
+
+
   .flex__group{
     display: flex;
     justify-content: space-between;
@@ -68,6 +70,21 @@
     padding: 20px;
     max-width: 400px;
     transition: all 300ms ease-in-out;
+    position: relative;
+  }
+
+  .modal__btn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ffc300;
+    border: 1px solid black;
   }
 
   
@@ -125,4 +142,13 @@
   .highlightLiquidElement{
     background-color: #ffb703;
     color: #001d3d;
+  }
+
+  .modul__text{
+    font-size: 20px;
+  }
+
+  .modul__text::first-letter{
+    color: #e63946;
+    font-size: 35px;
   }

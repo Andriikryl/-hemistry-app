@@ -4,6 +4,8 @@ import { Container } from "../container/Container";
 import style from "./style.module.css";
 import data from "../../data/PeriodicTableJSON.json";
 import { AnimatePresence, motion } from "framer-motion";
+import { Modal } from "../modal/Madal";
+import VisuallyHidden from "../visuallyhidden/VisuallyHidden";
 
 interface Element {
   name: string;
@@ -17,13 +19,17 @@ interface Element {
   period: number;
   number: number;
   phase: string;
+  summary: string;
 }
 
+const firstEll = data.elements[0];
+
 export default function PeriodicTable() {
-  const [selectedElement, setSelectedElement] = useState<Element | null>(null);
+  const [selectedElement, setSelectedElement] = useState(firstEll);
   const [highlightGasElements, setHighlightGasElements] = useState(false);
   const [highlightSolidElements, setHighlightSolidElements] = useState(false);
   const [highlightLiquidElements, setHighlightLiquidElements] = useState(false);
+  const [isModalOpen, toggleIsModalOpen] = useState(false);
   const handleHighlightGasElements = () => {
     setHighlightGasElements(!highlightGasElements);
   };
@@ -55,6 +61,15 @@ export default function PeriodicTable() {
                     ease: "easeInOut",
                   }}
                 >
+                  <button
+                    className={style.modal__btn}
+                    onClick={() => toggleIsModalOpen(true)}
+                  >
+                    ?
+                    <VisuallyHidden>
+                      opne modal (more information)
+                    </VisuallyHidden>
+                  </button>
                   <h2>{selectedElement.name}</h2>
                   <p>Appearance: {selectedElement.appearance}</p>
                   <p>Atomic Mass: {selectedElement.atomic_mass}</p>
@@ -105,7 +120,6 @@ export default function PeriodicTable() {
           </div>
         </div>
         <div className={style.periodic__table}>
-          {/* "phase": "Solid",  */}
           {data.elements.map((element) => (
             <button
               className={`${style.element} ${
@@ -138,6 +152,11 @@ export default function PeriodicTable() {
           ))}
         </div>
       </Container>
+      {isModalOpen && (
+        <Modal title="Log in" handleDismiss={() => toggleIsModalOpen(false)}>
+          <p className={style.modul__text}>{selectedElement?.summary}</p>
+        </Modal>
+      )}
     </section>
   );
 }
