@@ -23,11 +23,15 @@ export default function PeriodicTable() {
   const [selectedElement, setSelectedElement] = useState<Element | null>(null);
   const [highlightGasElements, setHighlightGasElements] = useState(false);
   const [highlightSolidElements, setHighlightSolidElements] = useState(false);
+  const [highlightLiquidElements, setHighlightLiquidElements] = useState(false);
   const handleHighlightGasElements = () => {
     setHighlightGasElements(!highlightGasElements);
   };
   const handleHighlightSolidElements = () => {
     setHighlightSolidElements(!highlightSolidElements);
+  };
+  const handleHighlightLiquidElements = () => {
+    setHighlightLiquidElements(!highlightLiquidElements);
   };
 
   const handleElementClick = (element: any) => {
@@ -89,6 +93,14 @@ export default function PeriodicTable() {
                   Solid Elements
                 </button>
               </li>
+              <li>
+                <button
+                  className={style.search__btn}
+                  onClick={handleHighlightLiquidElements}
+                >
+                  Liquid Elements
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -104,6 +116,11 @@ export default function PeriodicTable() {
               ${
                 highlightSolidElements && element.phase === "Solid"
                   ? style.highlightSolidElement
+                  : ""
+              }
+              ${
+                highlightLiquidElements && element.phase === "Liquid"
+                  ? style.highlightLiquidElement
                   : ""
               }
               `}
