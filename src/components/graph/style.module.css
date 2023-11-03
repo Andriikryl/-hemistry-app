@@ -1,0 +1,25 @@
+.reng{
+    display: grid;
+    place-items: center;
+}
+
+.reng span{
+    margin-block-start: 10px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #fca311;
+    position: relative;
+}
+
+.reng span::before{
+    content: "";
+    display: block;
+    width: 2px;
+    height: 15px;
+    background-color: black;
+    position: absolute;
+    top: -15px;
+}

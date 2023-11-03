@@ -6,6 +6,7 @@ import data from "../../data/PeriodicTableJSON.json";
 import { AnimatePresence, motion } from "framer-motion";
 import { Modal } from "../modal/Madal";
 import VisuallyHidden from "../visuallyhidden/VisuallyHidden";
+import Graph from "../graph/Graph";
 
 interface Element {
   name: string;
@@ -30,6 +31,7 @@ export default function PeriodicTable() {
   const [highlightSolidElements, setHighlightSolidElements] = useState(false);
   const [highlightLiquidElements, setHighlightLiquidElements] = useState(false);
   const [isModalOpen, toggleIsModalOpen] = useState(false);
+
   const handleHighlightGasElements = () => {
     setHighlightGasElements(!highlightGasElements);
   };
@@ -70,6 +72,9 @@ export default function PeriodicTable() {
                       opne modal (more information)
                     </VisuallyHidden>
                   </button>
+                  <div className={style.symbol__box}>
+                    <p className={style.symbol}>{selectedElement.symbol}</p>
+                  </div>
                   <h2>{selectedElement.name}</h2>
                   <p>Appearance: {selectedElement.appearance}</p>
                   <p>Atomic Mass: {selectedElement.atomic_mass}</p>
@@ -119,14 +124,29 @@ export default function PeriodicTable() {
             </ul>
           </div>
         </div>
-        <div className={style.periodic__table}>
-          {data.elements.map((element) => (
-            <button
-              className={`${style.element} ${
-                highlightGasElements && element.phase === "Gas"
-                  ? style.highlightGasElement
-                  : ""
-              }
+        <Graph
+          from={1}
+          to={18}
+          step={1}
+          classGraph={style.graph}
+          classReng={style.reng}
+        />
+        <div className={style.tabel__box}>
+          <Graph
+            from={1}
+            to={7}
+            step={1}
+            classGraph={style.graph__col}
+            classReng={style.reng__col}
+          />
+          <div className={style.periodic__table}>
+            {data.elements.map((element) => (
+              <button
+                className={`${style.element} ${
+                  highlightGasElements && element.phase === "Gas"
+                    ? style.highlightGasElement
+                    : ""
+                }
               ${
                 highlightSolidElements && element.phase === "Solid"
                   ? style.highlightSolidElement
@@ -138,18 +158,19 @@ export default function PeriodicTable() {
                   : ""
               }
               `}
-              key={element.name}
-              style={{
-                gridRow: element.ypos,
-                gridColumn: element.xpos,
-              }}
-              onClick={() => handleElementClick(element)}
-            >
-              <strong>{element.symbol}</strong>
-              <small className={style.number}>{element.number}</small>
-              <small className={style.name}>{element.name}</small>
-            </button>
-          ))}
+                key={element.name}
+                style={{
+                  gridRow: element.ypos,
+                  gridColumn: element.xpos,
+                }}
+                onClick={() => handleElementClick(element)}
+              >
+                <strong>{element.symbol}</strong>
+                <small className={style.number}>{element.number}</small>
+                <small className={style.name}>{element.name}</small>
+              </button>
+            ))}
+          </div>
         </div>
       </Container>
       {isModalOpen && (
